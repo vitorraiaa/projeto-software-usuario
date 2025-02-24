@@ -38,3 +38,5 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ezambomsantana/usuario-ci:${{ github.sha }}
+
+        
