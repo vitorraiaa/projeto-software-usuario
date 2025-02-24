@@ -37,4 +37,14 @@ jobs:
         push: true
         tags: vitorraia10/usuario-ci:latest
 
-        
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_TEST }}
+        username: "ubuntu"
+        key: ${{ secrets.KEY_TEST }}
+        port: 22
+        script: |
+          docker stop usuario
+          docker rm --force usuario
+          docker run -d -p 8080:8080 --name usuario vitorraia10/usuario-ci:${{ github.sha }}
