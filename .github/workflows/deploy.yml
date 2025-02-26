@@ -47,6 +47,6 @@ jobs:
         script: |
           docker stop usuario
           docker rm --force usuario
-          docker run -d -p 8080:8080 --name usuario vitorraia10/usuario-ci:${{ github.sha }}
+          docker run -d -p 8080:8080 --name usuario --network=rede vitorraia10/usuario-ci:${{ github.sha }}
 
 
