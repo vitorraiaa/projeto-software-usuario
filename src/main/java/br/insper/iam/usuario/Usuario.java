@@ -7,9 +7,11 @@ public class Usuario {
 
     private String nome;
     private String email;
+    private String papel;
 
-    public Usuario(String nome, String email) {
+    public Usuario(String nome, String email, String papel) {
         this.nome = nome;
+        this.papel = papel;
         this.email = email;
     }
 
@@ -31,6 +33,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPapel() {
+        return papel;
+    }
+
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 
     @Override
