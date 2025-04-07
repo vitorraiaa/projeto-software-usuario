@@ -13,7 +13,13 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios(
+            @RequestHeader String user,
+            @RequestHeader String password
+    ) {
+
+        usuarioService.validateUser(user, password);
+
         return usuarioService.getUsuarios();
     }
 
