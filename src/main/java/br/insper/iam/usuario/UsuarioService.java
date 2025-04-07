@@ -50,12 +50,14 @@ public class UsuarioService {
         return new CountUsuarioDTO(count);
     }
 
-    public void validateUser(String user, String password) {
+    public Usuario validateUser(String user, String password) {
         Usuario usuario = findUsuarioByEmail(user);
 
         if (!BCrypt.checkpw(password, usuario.getSenha())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
+
+        return usuario;
 
     }
 

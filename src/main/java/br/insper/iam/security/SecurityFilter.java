@@ -1,5 +1,6 @@
 package br.insper.iam.security;
 
+import br.insper.iam.login.LoginService;
 import br.insper.iam.usuario.UsuarioService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,20 +16,24 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private LoginService loginService;
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+        String path = request.getRequestURI();
+        if (path.equals("/api/login")) {
+            filterChain.doFilter(request, response);
+        } else {
+            String token = request.getHeader("Authorization");
 
-        String user = request.getHeader("user");
-        String password = request.getHeader("password");
+            loginService.validateToken(token);
+            // response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
 
-        usuarioService.validateUser(user, password);
-
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
+        }
     }
 
 
